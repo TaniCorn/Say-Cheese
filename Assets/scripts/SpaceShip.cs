@@ -20,6 +20,7 @@ public class SpaceShip : MonoBehaviour
     [SerializeField] private int captured = 0;
     [SerializeField] private GameObject cow;
     [SerializeField] private float timer;
+    [SerializeField] private GameObject target;
     // Start is called before the first frame update
     void Start()
     {
@@ -63,14 +64,14 @@ public class SpaceShip : MonoBehaviour
         }
         else if (currState == GameState.Attacking)
         {
-            transform.position = Vector3.MoveTowards(transform.position, cow.GetComponentInChildren<Transform>().position, Time.deltaTime * 100);
-            if (transform.position == cow.GetComponentInChildren<Transform>().position)
+            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, Time.deltaTime * 100);
+            if (transform.position == target.transform.position)
             {
-                Destroy(cow.transform.GetChild(0).gameObject);
+                Destroy(target);
                 currState = GameState.Roaming;
                 timer = 3000;
                 captured++;
-                
+                target = Instantiate(cow, new Vector3(Random.Range(-350, 350), 0, Random.Range(-350,350)), Quaternion.identity);
             }
         }
         else if(currState == GameState.Retreating)
