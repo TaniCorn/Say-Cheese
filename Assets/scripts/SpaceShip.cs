@@ -18,9 +18,8 @@ public class SpaceShip : MonoBehaviour
     [SerializeField] private int current = 0;
     [SerializeField] private int life = 3000;
     [SerializeField] private int captured = 0;
-    [SerializeField] private GameObject cow;
     [SerializeField] private float timer;
-    [SerializeField] private GameObject target;
+    [SerializeField] private Cow target;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,21 +29,17 @@ public class SpaceShip : MonoBehaviour
 
     // Update is called once per frame
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.tag == "cheese")
-        {
-            life -= 100;
-        }
+    public void TakeDamage() {
+        life -= 500;    
     }
     void Update()
     {
-        if (life < 0)
+        if (life <= 0)
         {
             currState = GameState.Dead;
         }
 
-        if (timer <= 0 && cow != null)
+        if (timer <= 0 && target != null)
         {
             currState = GameState.Attacking;
         }
@@ -67,11 +62,12 @@ public class SpaceShip : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, target.transform.position, Time.deltaTime * 100);
             if (transform.position == target.transform.position)
             {
-                Destroy(target);
+                Destroy(target.gameObject);
                 currState = GameState.Roaming;
                 timer = 3000;
                 captured++;
-                target = Instantiate(cow, new Vector3(Random.Range(-350, 350), 0, Random.Range(-350,350)), Quaternion.identity);
+                target = null;
+                FindNewTarget();
             }
         }
         else if(currState == GameState.Retreating)
@@ -83,5 +79,17 @@ public class SpaceShip : MonoBehaviour
             Destroy(gameObject);
             //despawn
         }
+    }
+
+    private void FindNewTarget()
+    {
+        Cow[] cows = FindObjectsOfType<Cow>();
+
+        if (cows.Length > 0)
+        {
+            int rand = Random.Range(0, cows.Length);
+            target = cows[rand];
+        }
+;
     }
 }

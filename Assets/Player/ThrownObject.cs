@@ -8,6 +8,8 @@ public class ThrownObject : MonoBehaviour
     private float objectLifetime = 10.0f;
     public GameObject particleEffect;
 
+    public SpaceShip mostRecentSpaceshipDamaged;
+
     public void FixedUpdate()
     {
         if (!GetComponent<BoxCollider>().enabled)
@@ -23,10 +25,19 @@ public class ThrownObject : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.GetComponent<ThrownObject>())//Replace with spaceship script
+        if (collision.gameObject.TryGetComponent<SpaceShip>(out SpaceShip ship))//Replace with spaceship script
         {
+            //Spaceship can't be damaged twice
+            if (ship == mostRecentSpaceshipDamaged)
+            {
+                return;
+            }
+            mostRecentSpaceshipDamaged = ship;
+            
             //Make Spaceship take damage
+            ship.TakeDamage();
 
+            //Particle Effect
             particleEffect.active = true;
             particleEffect.transform.parent = null;
         }
