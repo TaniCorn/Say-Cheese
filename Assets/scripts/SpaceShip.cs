@@ -19,14 +19,14 @@ public class SpaceShip : MonoBehaviour
     [SerializeField] private int life = 3000;
     [SerializeField] private int captured = 0;
     [SerializeField] private float timer;
-    [SerializeField] private Cow target;
+    [SerializeField] private GameObject target;
 
-    [SerializeField] public float speed = 1;
+    [SerializeField] public float speed = 10;
     // Start is called before the first frame update
     void Start()
     {
         currState = GameState.Roaming;
-        timer = 3000;
+        timer = 10;
     }
 
     public static void SetRoamPoints(Vector3[] rp)
@@ -36,18 +36,22 @@ public class SpaceShip : MonoBehaviour
     // Update is called once per frame
 
     public void TakeDamage() {
-        life -= 500;    
+        Debug.Log("<color=Blue>SpaceShip took damage</color>");
+        life -= 500;
     }
     void Update()
     {
-        if (life <= 0)
-        {
-            currState = GameState.Dead;
-        }
-
-        if (timer <= 0 && target != null)
+        timer -= Time.deltaTime;
+        if (timer < 0 && currState != GameState.Attacking)
         {
             currState = GameState.Attacking;
+            FindNewTarget();
+            Debug.Log("<color=Blue>SpaceShip is Attacking</color>");
+        }
+        if (life <= 0)
+        {
+            Debug.Log("<color=Blue>SpaceShip is Dead</color>");
+            currState = GameState.Dead;
         }
 
         if (currState == GameState.Idle)
@@ -56,25 +60,24 @@ public class SpaceShip : MonoBehaviour
         }
         else if (currState == GameState.Roaming)
         {
-            transform.position = Vector3.MoveTowards(transform.position, roamPoints[current], Time.deltaTime * 200 * speed);
+            transform.position = Vector3.MoveTowards(transform.position, roamPoints[current], Time.deltaTime * speed);
             if(transform.position == roamPoints[current])
             {
                 current = Random.Range(0, roamPoints.Length);
             }
-            timer--;
         }
         else if (currState == GameState.Attacking)
         {
-            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, Time.deltaTime * 100 * speed);
+            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, Time.deltaTime * speed/2);
             if (transform.position == target.transform.position)
             {
                 Destroy(target.gameObject);
+                Debug.Log("<color=Blue>SpaceShip is Roaming</color>");
                 currState = GameState.Roaming;
-                timer = 3000;
+                timer = 10;
                 captured++;
                 target = null;
                 manager.RemoveCow();
-                FindNewTarget();
             }
         }
         else if(currState == GameState.Retreating)
@@ -95,8 +98,9 @@ public class SpaceShip : MonoBehaviour
 
         if (cows.Length > 0)
         {
+            Debug.Log("<color=Blue>SpaceShip has Found Target</color>");
             int rand = Random.Range(0, cows.Length);
-            target = cows[rand];
+            target = cows[rand].gameObject;
         }
 ;
     }

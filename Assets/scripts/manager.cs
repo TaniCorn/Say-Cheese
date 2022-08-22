@@ -33,6 +33,7 @@ public class manager : MonoBehaviour
 
     private void Start()
     {
+        GetChildrenAsRoamPoints();
         SpaceShip.SetRoamPoints(roamPoints);
         //Start first wave after x seconds(for exploration)
         StartCoroutine(StartWave());
@@ -41,19 +42,21 @@ public class manager : MonoBehaviour
 
     private IEnumerator StartWave()
     {
+        Debug.Log("<color=green>10 Seconds till next wave</color>");
         yield return new WaitForSecondsRealtime(10.0f);
         StartNextWave();
     }
     private void StartNextWave()
     {
         wave++;
+        Debug.Log("<color=green>It is wave: </color>" + wave);
 
         int amountOfSpaceships = DecideNumberOfSpaceships();
         totalShips = amountOfSpaceships;
         for (int i = 0; i < amountOfSpaceships; i++)
         {
-            GameObject sp = Instantiate(spaceship, new Vector3(i * 30, 0, 0), Quaternion.identity, null);
-            sp.GetComponent<SpaceShip>().speed = wave;
+            GameObject sp = Instantiate(spaceship, new Vector3(i * 30, 0, 0), spaceship.transform.rotation, null) ;
+            sp.GetComponent<SpaceShip>().speed = wave * 10;
         }
         //Spawn alien spaceships
 
@@ -65,11 +68,25 @@ public class manager : MonoBehaviour
         {
             return totalCows;
         }
+        if (wave < 2)
+        {
+            return wave;
+        }
         int spa = totalCows - totalCows / wave;
         if (spa < 0)
         {
             return 1;
         }
         return spa;
+    }
+
+    private void GetChildrenAsRoamPoints()
+    {
+        Transform[] f = GetComponentsInChildren<Transform>();
+        roamPoints = new Vector3[f.Length];
+        for (int i = 0; i < f.Length; i++)
+        {
+            roamPoints[i] = f[i].position;
+        }
     }
 }
