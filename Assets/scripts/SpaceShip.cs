@@ -14,7 +14,7 @@ public class SpaceShip : MonoBehaviour
 {
    
     [SerializeField] private GameState currState;
-    [SerializeField] private Vector3[] roamPoints;
+    [SerializeField] static private Vector3[] roamPoints;
     [SerializeField] private int current = 0;
     [SerializeField] private int life = 3000;
     [SerializeField] private int captured = 0;
@@ -27,6 +27,10 @@ public class SpaceShip : MonoBehaviour
         timer = 3000;
     }
 
+    public static void SetRoamPoints(Vector3[] rp)
+    {
+        roamPoints = rp;
+    }
     // Update is called once per frame
 
     public void TakeDamage() {
