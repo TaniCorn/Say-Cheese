@@ -20,6 +20,8 @@ public class SpaceShip : MonoBehaviour
     [SerializeField] private int captured = 0;
     [SerializeField] private float timer;
     [SerializeField] private Cow target;
+
+    [SerializeField] public float speed = 1;
     // Start is called before the first frame update
     void Start()
     {
@@ -54,7 +56,7 @@ public class SpaceShip : MonoBehaviour
         }
         else if (currState == GameState.Roaming)
         {
-            transform.position = Vector3.MoveTowards(transform.position, roamPoints[current], Time.deltaTime * 200);
+            transform.position = Vector3.MoveTowards(transform.position, roamPoints[current], Time.deltaTime * 200 * speed);
             if(transform.position == roamPoints[current])
             {
                 current = Random.Range(0, roamPoints.Length);
@@ -63,7 +65,7 @@ public class SpaceShip : MonoBehaviour
         }
         else if (currState == GameState.Attacking)
         {
-            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, Time.deltaTime * 100);
+            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, Time.deltaTime * 100 * speed);
             if (transform.position == target.transform.position)
             {
                 Destroy(target.gameObject);
@@ -71,6 +73,7 @@ public class SpaceShip : MonoBehaviour
                 timer = 3000;
                 captured++;
                 target = null;
+                manager.RemoveCow();
                 FindNewTarget();
             }
         }
@@ -80,6 +83,7 @@ public class SpaceShip : MonoBehaviour
         }
         else if (currState == GameState.Dead)
         {
+            FindObjectOfType<manager>().RemoveShip();
             Destroy(gameObject);
             //despawn
         }
