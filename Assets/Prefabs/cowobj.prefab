@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 915188780891699424}
+  - component: {fileID: 4299043599843751066}
+  - component: {fileID: 1559133043127053578}
   m_Layer: 0
   m_Name: cowobj
   m_TagString: Untagged
@@ -32,6 +34,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4299043599843751066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3906725800660119930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a63eac838f4b5f4ea357ea957320b20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &1559133043127053578
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3906725800660119930}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.18126845, y: 0.24487905, z: 0.46156254}
+  m_Center: {x: -0.0071854354, y: -0.014604551, z: 0.026908208}
 --- !u!1001 &371198106877317788
 PrefabInstance:
   m_ObjectHideFlags: 0
