@@ -13,52 +13,57 @@ public enum GameState
 public class SpaceShip : MonoBehaviour
 {
    
-    [SerializeField] private GameState currState;
-    [SerializeField] static private Vector3[] roamPoints;
-    [SerializeField] private int current = 0;
-    [SerializeField] private int life = 3000;
-    [SerializeField] private int captured = 0;
-    [SerializeField] private float timer;
-    [SerializeField] private GameObject target;
+    private GameState currState;//Current State
 
-    [SerializeField] public float speed = 10;
-    // Start is called before the first frame update
+    static private Vector3[] roamPoints;//Our roaming points
+    private int current = 0;//Our current Roam Point Index
+    private float timer;//Time for roaming
+
+    [HideInInspector] public GameObject target;//Cow Target
+    private bool abducting;
+
+    [SerializeField][Tooltip("The child object that contains the particle effect")]private GameObject _abductionEffect;
+
+    [HideInInspector][Tooltip("The speed of the ship")] public float speed = 10;
+    [SerializeField] private int life = 3000;//Total Life
+    [SerializeField][Tooltip("Height the ship will float above the cow while abducting")] private Vector3 heightAboveCow = new Vector3(0,10,0);
+
+    public static void SetRoamPoints(Vector3[] rp){roamPoints = rp;}
+    public void TakeDamage(){Debug.Log("<color=Blue>SpaceShip took damage</color>");life -= 500;}
+
     void Start()
     {
         currState = GameState.Roaming;
+        abducting = false;
         timer = 10;
     }
 
-    public static void SetRoamPoints(Vector3[] rp)
-    {
-        roamPoints = rp;
-    }
-    // Update is called once per frame
 
-    public void TakeDamage() {
-        Debug.Log("<color=Blue>SpaceShip took damage</color>");
-        life -= 500;
-    }
     void Update()
     {
         timer -= Time.deltaTime;
+
+        //Change state to Attacking
         if (timer < 0 && currState != GameState.Attacking)
         {
             currState = GameState.Attacking;
             FindNewTarget();
             Debug.Log("<color=Blue>SpaceShip is Attacking</color>");
         }
+        //Change state to Dead
         if (life <= 0)
         {
             Debug.Log("<color=Blue>SpaceShip is Dead</color>");
             currState = GameState.Dead;
         }
 
-        if (currState == GameState.Idle)
-        {
-           
-        }
-        else if (currState == GameState.Roaming)
+
+        #region STATE_MACHINE_
+        //Ship is never:
+            //Idle
+            //Retreating
+
+        if (currState == GameState.Roaming)
         {
             transform.position = Vector3.MoveTowards(transform.position, roamPoints[current], Time.deltaTime * speed);
             if(transform.position == roamPoints[current])
@@ -68,30 +73,42 @@ public class SpaceShip : MonoBehaviour
         }
         else if (currState == GameState.Attacking)
         {
-            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, Time.deltaTime * speed/2);
-            if (transform.position == target.transform.position)
+            if (target)
             {
-                Destroy(target.gameObject);
-                Debug.Log("<color=Blue>SpaceShip is Roaming</color>");
-                currState = GameState.Roaming;
-                timer = 10;
-                captured++;
-                target = null;
-                manager.RemoveCow();
+                if (transform.position == target.transform.position + heightAboveCow || abducting)
+                {
+                    Debug.Log("<color=Blue>SpaceShip is collecting the Cow</color>");
+                    AbductCow();
+                    return;
+
+                }
             }
-        }
-        else if(currState == GameState.Retreating)
-        {
-            //if damaged below x% begin to retreat away off the map and despawn
+            else
+            {
+                CowCaptured();
+                return;
+            }
+
+            transform.position = Vector3.MoveTowards(transform.position, target.transform.position + heightAboveCow, Time.deltaTime * speed/2);
+
         }
         else if (currState == GameState.Dead)
         {
+            if (target)
+            {
+                target.GetComponent<Rigidbody>().useGravity = true;
+
+            }
             FindObjectOfType<manager>().RemoveShip();
             Destroy(gameObject);
             //despawn
         }
+        #endregion
     }
 
+    /// <summary>
+    /// Finds any random cow and starts to target it.
+    /// </summary>
     private void FindNewTarget()
     {
         Cow[] cows = FindObjectsOfType<Cow>();
@@ -104,4 +121,33 @@ public class SpaceShip : MonoBehaviour
         }
 ;
     }
+    private void AbductCow()
+    {
+
+        //When the collider hits, the cow will get destroyed
+        GetComponentInChildren<BoxCollider>().enabled = true;
+        _abductionEffect.SetActive(true);
+        if (!abducting)
+        {
+            _abductionEffect.transform.position = target.transform.position;
+            _abductionEffect.GetComponent<ParticleSystem>().Play();
+        }
+        abducting = true;
+
+        target.GetComponent<Rigidbody>().useGravity = false;
+        target.transform.position += new Vector3(0,1 * Time.deltaTime, 0);
+    }
+
+    private void CowCaptured()
+    {
+        Debug.Log("<color=Blue>SpaceShip is Roaming</color>");
+        GetComponentInChildren<BoxCollider>().enabled = false;
+        _abductionEffect.SetActive(false);
+        abducting = false;
+        target = null;
+        currState = GameState.Roaming;
+        timer = 10;
+        manager.RemoveCow();
+    }
+
 }

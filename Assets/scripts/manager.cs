@@ -11,7 +11,9 @@ public class manager : MonoBehaviour
     [SerializeField][Tooltip("Current wave")]
     int wave = 0;
 
-    [SerializeField] private Vector3[] roamPoints;
+
+    [SerializeField] private GameObject AlienRoamPointsObject;
+    [SerializeField] private Vector3[] alienRoamPoints;
     [SerializeField] private GameObject spaceship;
 
     public static void RemoveCow()
@@ -33,8 +35,8 @@ public class manager : MonoBehaviour
 
     private void Start()
     {
-        GetChildrenAsRoamPoints();
-        SpaceShip.SetRoamPoints(roamPoints);
+       alienRoamPoints = GetChildrenAsRoamPoints(AlienRoamPointsObject);
+        SpaceShip.SetRoamPoints(alienRoamPoints);
         //Start first wave after x seconds(for exploration)
         StartCoroutine(StartWave());
         totalCows = FindObjectsOfType<Cow>().Length;
@@ -56,7 +58,7 @@ public class manager : MonoBehaviour
         for (int i = 0; i < amountOfSpaceships; i++)
         {
             GameObject sp = Instantiate(spaceship, new Vector3(i * 30, 0, 0), spaceship.transform.rotation, null) ;
-            sp.GetComponent<SpaceShip>().speed = wave * 10;
+            sp.GetComponent<SpaceShip>().speed = (wave * 2) + 10;
         }
         //Spawn alien spaceships
 
@@ -80,13 +82,16 @@ public class manager : MonoBehaviour
         return spa;
     }
 
-    private void GetChildrenAsRoamPoints()
+    private Vector3[] GetChildrenAsRoamPoints(GameObject go)
     {
-        Transform[] f = GetComponentsInChildren<Transform>();
-        roamPoints = new Vector3[f.Length];
+        Transform[] f = go.GetComponentsInChildren<Transform>();
+        Vector3[] roamPoints = new Vector3[f.Length];
         for (int i = 0; i < f.Length; i++)
         {
             roamPoints[i] = f[i].position;
         }
+        return roamPoints;
     }
+
+
 }
