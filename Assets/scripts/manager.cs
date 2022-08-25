@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor.UIElements;
 using UnityEditor.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 public class manager : MonoBehaviour
 {
 
@@ -21,6 +22,8 @@ public class manager : MonoBehaviour
     [SerializeField] private GameObject spaceship;
 
     public TMP_Text totalCowsText;
+
+    public GameObject gameOverPanel;
     public static void RemoveCow()
     {
         totalCows--;
@@ -29,6 +32,9 @@ public class manager : MonoBehaviour
         {
             //End game
             Debug.Log("<color=green>GAME OVER</color>");
+            Cursor.lockState = CursorLockMode.Confined;
+
+            FindObjectOfType<manager>().gameOverPanel.SetActive(true);
         }
     }
 
@@ -109,5 +115,13 @@ public class manager : MonoBehaviour
         return roamPoints;
     }
 
-
+    public void Retry()
+    {
+        SceneManager.LoadScene("Level");
+    }
+    public void MainMenu()
+    {
+        Debug.LogError("<color=Red>Go to manager.cs, Function MainMenu() to add the main menu scene name</color>");
+        //SceneManager.LoadScene("Level");
+    }
 }
