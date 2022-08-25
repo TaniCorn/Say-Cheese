@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: b9d912d372ca1074696818808b77c564
+guid: 57d726974ce37a34dbde93422a92d18d
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable:
   - first:
-      74: -374315801883965180
-    second: metarig|CowAction
+      74: 1339755029452319797
+    second: metarig|CowEat
   - first:
       74: -664933404753656589
     second: metarig|CowGrassEat
@@ -13,8 +13,14 @@ ModelImporter:
       74: 61365853943082420
     second: metarig|CowWalk
   - first:
-      74: -1006701680271510368
-    second: metarig|CowWalkProper
+      74: 63574570570373153
+    second: metarig|CowWalkingAnim
+  - first:
+      74: -2252527845481328159
+    second: metarig|CowWalkingAnim (1)
+  - first:
+      74: 4919819529892664335
+    second: metarig|CowGrassEat (1)
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -45,11 +51,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: metarig|CowGrassEat
-      takeName: metarig|CowGrassEat
+      name: metarig|CowWalkingAnim (1)
+      takeName: metarig|CowWalkingAnim
       internalID: 0
       firstFrame: 0
-      lastFrame: 160
+      lastFrame: 58
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -74,11 +80,69 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: metarig|CowWalkProper
-      takeName: metarig|CowWalkProper
+      name: metarig|CowGrassEat
+      takeName: metarig|CowGrassEat
       internalID: 0
       firstFrame: 0
-      lastFrame: 93
+      lastFrame: 160
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: metarig|CowWalk
+      takeName: metarig|CowWalk
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 160
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: metarig|CowWalkingAnim
+      takeName: metarig|CowWalkingAnim
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 58
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
