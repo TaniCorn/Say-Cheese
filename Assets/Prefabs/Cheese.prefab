@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5191372656334073419}
   - component: {fileID: 1854878803432285389}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Cheese
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,7 +43,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 732364463155359855}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: -2544318000483907571, guid: 20b63631cc152a44eb0f1b6c0b433e02, type: 3}
 --- !u!23 &732364463155359842
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: -7720851650173870308, guid: 20b63631cc152a44eb0f1b6c0b433e02, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -111,7 +111,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 971a62b7cf79de149bf775810e9e7919, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectLifetime: 10
   particleEffect: {fileID: 6211159952226075450}
+  mostRecentSpaceshipDamaged: {fileID: 0}
 --- !u!1001 &6561637908739155568
 PrefabInstance:
   m_ObjectHideFlags: 0

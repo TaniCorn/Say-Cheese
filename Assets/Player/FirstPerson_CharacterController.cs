@@ -18,12 +18,14 @@ public class FirstPerson_CharacterController : MonoBehaviour
 
     private Vector3 playerMovement;
 
+    [SerializeField] private float headHeight = 2.0f;
+
     // Start is called before the first frame update
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
 
-        _camera.gameObject.transform.position = transform.position;
+        _camera.gameObject.transform.position = new Vector3(transform.position.x, transform.position.y + headHeight, transform.position.z);
         _camera.gameObject.transform.rotation = transform.rotation;
 
         _camera.gameObject.transform.parent = transform;
