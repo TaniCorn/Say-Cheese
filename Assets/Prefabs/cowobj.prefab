@@ -55,7 +55,7 @@ MonoBehaviour:
   shipMask:
     serializedVersion: 2
     m_Bits: 128
-  cowAnimator: {fileID: 0}
+  cowAnimator: {fileID: 3048576709117098856}
 --- !u!65 &1559133043127053578
 BoxCollider:
   m_ObjectHideFlags: 0
