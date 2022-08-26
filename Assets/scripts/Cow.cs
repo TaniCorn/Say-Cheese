@@ -11,6 +11,7 @@ public class Cow : MonoBehaviour
     [SerializeField] public float speed = 10;
     [SerializeField] public float rayDistance = 10;
     [SerializeField] private LayerMask shipMask;
+    [SerializeField] private AudioSource cowSoundSource;
 
     public Animator cowAnimator;
 
@@ -109,7 +110,15 @@ public class Cow : MonoBehaviour
     private void BeingAttacked()
     {
         //this.gameObject.transform.Rotate(new Vector3(90, 90, 0));
+        PlayCowSound();
     }
+    
+    private void PlayCowSound()
+    {
+        if(cowSoundSource.isPlaying == false)
+            cowSoundSource.Play();
+    }
+    
     private void AttackInterrupted()
     {
         currState = GameState.Roaming;

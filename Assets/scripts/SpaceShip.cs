@@ -27,12 +27,17 @@ public class SpaceShip : MonoBehaviour
     [HideInInspector][Tooltip("The speed of the ship")] public float speed = 10;
     [SerializeField] private int life = 3000;//Total Life
     [SerializeField][Tooltip("Height the ship will float above the cow while abducting")] private Vector3 heightAboveCow = new Vector3(0,10,0);
-
+    [SerializeField] private AudioSource shipFlySoundSource;
+    [SerializeField] private AudioSource shipAbductSoundSource;
+    [SerializeField] private AudioSource shipHitSoundSource;
+    private SoundJukebox jukebox;
+    
     public static void SetRoamPoints(Vector3[] rp){roamPoints = rp;}
-    public void TakeDamage(){Debug.Log("<color=Blue>SpaceShip took damage</color>");life -= 500;}
+    public void TakeDamage(){Debug.Log("<color=Blue>SpaceShip took damage</color>");life -= 500; PlayHitSound(); }
 
     void Start()
     {
+        jukebox = FindObjectOfType<SoundJukebox>();
         currState = GameState.Roaming;
         abducting = false;
         timer = 10;
@@ -53,6 +58,7 @@ public class SpaceShip : MonoBehaviour
         //Change state to Dead
         if (life <= 0)
         {
+            PlayDieSound();
             Debug.Log("<color=Blue>SpaceShip is Dead</color>");
             currState = GameState.Dead;
         }
@@ -66,6 +72,7 @@ public class SpaceShip : MonoBehaviour
         if (currState == GameState.Roaming)
         {
             transform.position = Vector3.MoveTowards(transform.position, roamPoints[current], Time.deltaTime * speed);
+            PlayFlySound();
             if(transform.position == roamPoints[current])
             {
                 current = Random.Range(0, roamPoints.Length);
@@ -132,8 +139,8 @@ public class SpaceShip : MonoBehaviour
             _abductionEffect.transform.position = target.transform.position;
             _abductionEffect.GetComponent<ParticleSystem>().Play();
         }
-        abducting = true;
-
+        SetAbducting(true);
+        PlayAbductSound();
         target.GetComponent<Rigidbody>().useGravity = false;
         target.transform.position += new Vector3(0,1 * Time.deltaTime, 0);
     }
@@ -143,11 +150,47 @@ public class SpaceShip : MonoBehaviour
         Debug.Log("<color=Blue>SpaceShip is Roaming</color>");
         GetComponentInChildren<BoxCollider>().enabled = false;
         _abductionEffect.SetActive(false);
-        abducting = false;
+        SetAbducting(false);
         target = null;
         currState = GameState.Roaming;
         timer = 10;
         manager.RemoveCow();
     }
 
+
+    private void PlayAbductSound()
+    {
+        if(shipAbductSoundSource.isPlaying == false)
+            shipAbductSoundSource.Play();
+    }
+
+    private void StopAbductSound()
+    {
+        shipAbductSoundSource.Stop();
+    }
+    
+    private void PlayFlySound()
+    {
+        if(shipFlySoundSource.isPlaying == false)
+            shipFlySoundSource.Play();
+    }
+
+    private void StopFlySound()
+    {
+        shipFlySoundSource.Stop();
+    }
+    
+    private void PlayDieSound() { jukebox.PlayUFODeathSound();}
+    
+    private void PlayHitSound() {shipHitSoundSource.Play();}
+
+    private void SetAbducting(bool value)
+    {
+        abducting = value;
+        if(abducting)
+            StopFlySound();
+        else
+            StopAbductSound();
+    }
+    
 }

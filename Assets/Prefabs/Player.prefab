@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3600249891795518905}
   - component: {fileID: 3600249891795518904}
   - component: {fileID: 3600249891795518882}
+  - component: {fileID: 7969026640073028585}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -53,7 +54,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3600249891795518907}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -133,6 +134,7 @@ MonoBehaviour:
   _camera: {fileID: 0}
   mouseSensitivity: 300
   speed: 10
+  headHeight: 2
 --- !u!114 &3600249891795518882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,6 +152,14 @@ MonoBehaviour:
     type: 3}
   objectInHand: {fileID: 3600249893376560197}
   throwStrength: 22.06
+--- !u!81 &7969026640073028585
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3600249891795518907}
+  m_Enabled: 1
 --- !u!1 &3600249892747669031
 GameObject:
   m_ObjectHideFlags: 0
