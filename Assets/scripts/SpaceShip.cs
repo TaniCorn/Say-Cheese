@@ -136,7 +136,7 @@ public class SpaceShip : MonoBehaviour
         _abductionEffect.SetActive(true);
         if (!abducting)
         {
-            _abductionEffect.transform.position = target.transform.position;
+            //_abductionEffect.transform.position = target.transform.position;
             _abductionEffect.GetComponent<ParticleSystem>().Play();
         }
         SetAbducting(true);
@@ -146,6 +146,10 @@ public class SpaceShip : MonoBehaviour
         Vector3 diff = target.transform.position - GetComponentInChildren<AbductionZone>().transform.position;
         Debug.LogWarning(diff.normalized);
         target.transform.position -= diff.normalized * Time.deltaTime ;
+
+        target.transform.Rotate(new Vector3(1, 1, 0.7f), 200 * Time.deltaTime);
+
+
     }
 
     private void CowCaptured()
