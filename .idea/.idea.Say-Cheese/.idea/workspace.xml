@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="36035071-5ea2-49cc-ac0a-9d3174c978c9" name="Changes" comment="" />
+    <list default="true" id="36035071-5ea2-49cc-ac0a-9d3174c978c9" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Assets/LuckiestGuy-Regular SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LuckiestGuy-Regular SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -68,6 +71,7 @@
       <updated>1661437760708</updated>
       <workItem from="1661437766051" duration="188000" />
       <workItem from="1661522921150" duration="2307000" />
+      <workItem from="1661608350508" duration="342000" />
     </task>
     <servers />
   </component>
