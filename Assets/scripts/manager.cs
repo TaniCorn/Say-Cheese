@@ -25,6 +25,8 @@ public class manager : MonoBehaviour
     public TMP_Text totalTimeSurvivedText;
 
     public GameObject gameOverPanel;
+
+    public GameObject transitionPanel;
     public static void RemoveCow()
     {
         totalCows--;
@@ -60,7 +62,9 @@ public class manager : MonoBehaviour
     }
     private void Start()
     {
-       alienRoamPoints = GetChildrenAsVectorPoints(AlienRoamPointsObject);
+        TransitionOut();
+
+        alienRoamPoints = GetChildrenAsVectorPoints(AlienRoamPointsObject);
        alienSpawnPoints = GetChildrenAsVectorPoints(AlienSpawnPointsObject);
         SpaceShip.SetRoamPoints(alienRoamPoints);
         //Start first wave after x seconds(for exploration)
@@ -130,11 +134,29 @@ public class manager : MonoBehaviour
 
     public void Retry()
     {
-        SceneManager.LoadScene("Level");
+        TransitionIn();
+        LeanTween.delayedCall(1.0f, () => { SceneManager.LoadScene("Level"); });
+        
+    }
+    System.Action<string> ac ;
+    private void LoadScene()
+    {
+
     }
     public void MainMenu()
     {
         Debug.LogError("<color=Red>Go to manager.cs, Function MainMenu() to add the main menu scene name</color>");
         //SceneManager.LoadScene("Level");
+    }
+
+    public void TransitionIn()
+    {
+        transitionPanel.transform.position = new Vector3(-Screen.width, Screen.height / 2);
+        LeanTween.move(transitionPanel, new Vector2(Screen.width / 2, Screen.height / 2), 1.0f);
+    }
+    public void TransitionOut()
+    {
+        transitionPanel.transform.position = new Vector3(Screen.width/2, Screen.height / 2);
+        LeanTween.move(transitionPanel, new Vector2(-Screen.width, Screen.height / 2), 1.0f);
     }
 }
