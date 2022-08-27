@@ -58,6 +58,7 @@ MonoBehaviour:
     m_Bits: 128
   cowSoundSource: {fileID: -8068654706760125613}
   cowAnimator: {fileID: 3048576709117098856}
+  randomTimerAdditions: 5
 --- !u!65 &1559133043127053578
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -110,7 +111,7 @@ AudioSource:
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -127,7 +128,7 @@ AudioSource:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 1
+      time: 0.29632568
       value: 0
       inSlope: 0
       outSlope: 0
@@ -143,7 +144,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -158,7 +159,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.16444445
       inSlope: 0
       outSlope: 0
       tangentMode: 0
