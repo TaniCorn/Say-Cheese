@@ -138,15 +138,12 @@ public class manager : MonoBehaviour
         LeanTween.delayedCall(1.0f, () => { SceneManager.LoadScene("Level"); });
         
     }
-    System.Action<string> ac ;
-    private void LoadScene()
-    {
-
-    }
     public void MainMenu()
     {
         Debug.LogError("<color=Red>Go to manager.cs, Function MainMenu() to add the main menu scene name</color>");
-        //SceneManager.LoadScene("Level");
+        TransitionIn();
+        LeanTween.delayedCall(1.0f, () => { SceneManager.LoadScene("Main Menu"); });
+
     }
 
     public void TransitionIn()
