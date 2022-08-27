@@ -7,6 +7,9 @@ public class ThrownObject : MonoBehaviour
     [SerializeField]
     private float objectLifetime = 10.0f;
     public GameObject particleEffect;
+    bool played = false;
+    int timesPlayed = 5;
+    public ParticleSystem PA_Collision;
 
     public SpaceShip mostRecentSpaceshipDamaged;
 
@@ -25,6 +28,11 @@ public class ThrownObject : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
+        timesPlayed--;
+        PA_Collision.Emit(timesPlayed);
+        //if (!played)
+            //PA_Collision.Play();
+        //played = true;
         if (collision.gameObject.TryGetComponent<SpaceShip>(out SpaceShip ship))//Replace with spaceship script
         {
             //Spaceship can't be damaged twice
@@ -40,6 +48,13 @@ public class ThrownObject : MonoBehaviour
             //Particle Effect
             particleEffect.active = true;
             particleEffect.transform.parent = null;
+        }
+
+        if (collision.gameObject.TryGetComponent<Cow>(out Cow cow))//Replace with spaceship script
+        {
+            //Make Cow MOO
+            cow.PlayCowSound();
+
         }
     }
 }

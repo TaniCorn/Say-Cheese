@@ -21,7 +21,10 @@ public class Cow : MonoBehaviour
 
     private GameObject shipAttacking;
 
-    private Vector3 direction;
+    private Vector3 moveDirection;
+    private Vector3 lookDirection;
+
+    [SerializeField][Range(0,10.0f)] private float randomTimerAdditions = 5.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,7 +50,7 @@ public class Cow : MonoBehaviour
                 Debug.Log("<color=Green>Cow Going into Roaming Mode</color>");
                 cowAnimator.SetBool("Roaming", true);
                 cowAnimator.SetBool("Eating", false);
-                timer = roamingTimer;
+                timer = roamingTimer + Random.Range(0, randomTimerAdditions);
                 currState = GameState.Roaming;
                 RandomDirection();
             }
@@ -61,12 +64,15 @@ public class Cow : MonoBehaviour
                 Debug.Log("<color=Green>Cow Going into Idle Mode</color>");
                 cowAnimator.SetBool("Eating", true);
                 cowAnimator.SetBool("Roaming", false);
-                timer = eatingTimer;
+                timer = eatingTimer + Random.Range(0, randomTimerAdditions); ;
                 currState = GameState.Idle;
                 return;
             }
 
-            rb.MovePosition(transform.position + (direction * speed * Time.deltaTime));
+            rb.MovePosition(transform.position + (moveDirection * speed * Time.deltaTime));
+            transform.LookAt(this.transform.position + lookDirection);
+            //Quaternion rot = Quaternion.LookRotation(new Vector3(0,0,1), Vector3.up);
+            //rb.transform.rotation = rot;
         }
         else if (currState == GameState.Attacking)
         {
@@ -74,8 +80,8 @@ public class Cow : MonoBehaviour
             {
                 shipAttacking = null;
                 AttackInterrupted();
-                cowAnimator.SetBool("Eating", true);
-                cowAnimator.SetBool("Roaming", false);
+                cowAnimator.SetBool("Eating", false);
+                cowAnimator.SetBool("Roaming", true);
                 Debug.Log("<color=Green>Cow Going into Roaming Mode</color>");
 
             }
@@ -113,7 +119,7 @@ public class Cow : MonoBehaviour
         PlayCowSound();
     }
     
-    private void PlayCowSound()
+    public void PlayCowSound()
     {
         if(cowSoundSource.isPlaying == false)
             cowSoundSource.Play();
@@ -126,20 +132,23 @@ public class Cow : MonoBehaviour
     private void RandomDirection()
     {
         float rand = Random.Range(0, 3);
-
         switch (rand)
         {
             case 0:
-                direction = new Vector3(1, 0, 0);
+                moveDirection = new Vector3(1, 0, 0);
+                lookDirection = new Vector3(0, 0, -1);
                 return;
             case 1:
-                direction = new Vector3(-1, 0, 0);
+                moveDirection = new Vector3(-1, 0, 0);
+                lookDirection = new Vector3(0, 0, 1);
                 return;
             case 2:
-                direction = new Vector3(0, 0, -1);
+                moveDirection = new Vector3(0, 0, -1);
+                lookDirection = new Vector3(-1, 0, 0);
                 return;
             case 3:
-                direction = new Vector3(0, 0, 1);
+                moveDirection = new Vector3(0, 0, 1);
+                lookDirection = new Vector3(1, 0, 0);
                 return;
             default:
                 Debug.LogError("NO DIRECTION FOR COW");
