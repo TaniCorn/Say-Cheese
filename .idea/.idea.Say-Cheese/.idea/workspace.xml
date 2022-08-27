@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="36035071-5ea2-49cc-ac0a-9d3174c978c9" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Say-Cheese/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Say-Cheese/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UFO.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UFO.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Level.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Level.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/SoundJukebox.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SoundJukebox.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/SpaceShip.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/SpaceShip.cs" afterDir="false" />
-    </list>
+    <list default="true" id="36035071-5ea2-49cc-ac0a-9d3174c978c9" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -75,7 +69,7 @@
       <workItem from="1661437766051" duration="188000" />
       <workItem from="1661522921150" duration="2307000" />
       <workItem from="1661608350508" duration="342000" />
-      <workItem from="1661611811670" duration="47000" />
+      <workItem from="1661611811670" duration="243000" />
     </task>
     <servers />
   </component>
