@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="36035071-5ea2-49cc-ac0a-9d3174c978c9" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Level.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Level.unity" afterDir="false" />
-    </list>
+    <list default="true" id="36035071-5ea2-49cc-ac0a-9d3174c978c9" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -69,7 +67,7 @@
       <option name="presentableId" value="Default" />
       <updated>1661437760708</updated>
       <workItem from="1661437766051" duration="188000" />
-      <workItem from="1661522921150" duration="2265000" />
+      <workItem from="1661522921150" duration="2307000" />
     </task>
     <servers />
   </component>
