@@ -117,6 +117,8 @@ public class Cow : MonoBehaviour
     {
         //this.gameObject.transform.Rotate(new Vector3(90, 90, 0));
         PlayCowSound();
+        //transform.Rotate(new Vector3(0, 1, 0), 45 * Time.deltaTime);
+        transform.Rotate(new Vector3(1, 1, 0.7f), 200 * Time.deltaTime);
     }
     
     public void PlayCowSound()

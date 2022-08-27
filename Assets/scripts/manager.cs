@@ -5,6 +5,7 @@ using UnityEditor.UIElements;
 using UnityEditor.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+
 public class manager : MonoBehaviour
 {
 
@@ -92,8 +93,7 @@ public class manager : MonoBehaviour
             GameObject sp = Instantiate(spaceship, alienSpawnPoints[randomSpawn], spaceship.transform.rotation, null) ;
             sp.GetComponent<SpaceShip>().speed = (wave * 2) + 10;
         }
-        //Spawn alien spaceships
-
+        
     }
 
     private int DecideNumberOfSpaceships()
