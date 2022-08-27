@@ -82,11 +82,12 @@ public class manager : MonoBehaviour
 
     private int DecideNumberOfSpaceships()
     {
-        if (wave > 7)
+        if (wave >= 7)
             return totalCows;
-        if (wave > 5)
+        if (wave >= 2)
             return totalCows / 2;
-
+        if (wave >= 3)
+            return 2;
         return 1;
         //if (wave > 10)
         //{

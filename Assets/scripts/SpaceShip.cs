@@ -142,7 +142,10 @@ public class SpaceShip : MonoBehaviour
         SetAbducting(true);
         PlayAbductSound();
         target.GetComponent<Rigidbody>().useGravity = false;
-        target.transform.position += new Vector3(0,1 * Time.deltaTime, 0);
+        
+        Vector3 diff = target.transform.position - GetComponentInChildren<AbductionZone>().transform.position;
+        Debug.LogWarning(diff.normalized);
+        target.transform.position -= diff.normalized * Time.deltaTime ;
     }
 
     private void CowCaptured()
@@ -154,7 +157,6 @@ public class SpaceShip : MonoBehaviour
         target = null;
         currState = GameState.Roaming;
         timer = 10;
-        manager.RemoveCow();
     }
 
 

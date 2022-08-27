@@ -8,8 +8,11 @@ public class AbductionZone : MonoBehaviour
     {
         if (other.TryGetComponent<Cow>(out Cow cow))
         {
+            Debug.LogWarning("Cow is Removed");
             GetComponentInParent<SpaceShip>().target = null;
             Destroy(cow.gameObject);
+            manager.RemoveCow();
+
         }
     }
 }
