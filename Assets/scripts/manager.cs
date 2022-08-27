@@ -13,7 +13,7 @@ public class manager : MonoBehaviour
     private static int totalShips;
     [SerializeField][Tooltip("Current wave")]
     int wave = 0;
-
+    float timeSurvived = 0;
 
     [SerializeField] private GameObject AlienRoamPointsObject;
     [SerializeField] private GameObject AlienSpawnPointsObject;
@@ -22,6 +22,7 @@ public class manager : MonoBehaviour
     [SerializeField] private GameObject spaceship;
 
     public TMP_Text totalCowsText;
+    public TMP_Text totalTimeSurvivedText;
 
     public GameObject gameOverPanel;
     public static void RemoveCow()
@@ -34,7 +35,13 @@ public class manager : MonoBehaviour
             Debug.Log("<color=green>GAME OVER</color>");
             Cursor.lockState = CursorLockMode.Confined;
 
-            FindObjectOfType<manager>().gameOverPanel.SetActive(true);
+            GameObject panel = FindObjectOfType<manager>().gameOverPanel;
+            panel.transform.localScale = Vector3.zero;
+            panel.SetActive(true);
+            LeanTween.scale(panel, new Vector3(1.3f, 1.3f, 1.3f), 0.4f);
+            LeanTween.scale(panel, new Vector3(1, 1, 1), 0.1f).setDelay(0.4f);
+
+            
         }
     }
 
@@ -46,6 +53,11 @@ public class manager : MonoBehaviour
 
     }
 
+    private void FixedUpdate()
+    {
+        timeSurvived += Time.deltaTime;
+        totalTimeSurvivedText.text = ((int)timeSurvived).ToString();
+    }
     private void Start()
     {
        alienRoamPoints = GetChildrenAsVectorPoints(AlienRoamPointsObject);
@@ -84,7 +96,7 @@ public class manager : MonoBehaviour
     {
         if (wave >= 7)
             return totalCows;
-        if (wave >= 2)
+        if (wave >= 5)
             return totalCows / 2;
         if (wave >= 3)
             return 2;
