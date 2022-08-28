@@ -19,11 +19,13 @@ public class FirstPerson_CharacterController : MonoBehaviour
     private Vector3 playerMovement;
 
     [SerializeField] private float headHeight = 2.0f;
+    bool locked = true;
 
     // Start is called before the first frame update
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 
         _camera.gameObject.transform.position = new Vector3(transform.position.x, transform.position.y + headHeight, transform.position.z);
         _camera.gameObject.transform.rotation = transform.rotation;
@@ -37,6 +39,29 @@ public class FirstPerson_CharacterController : MonoBehaviour
     void Update()
     {
         PlayerCameraControl();
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (locked)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                locked = false;
+            }
+            else
+            {
+                locked = true;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+
+            }
+        }
+        if (Input.GetMouseButtonDown(0) && !locked)
+        {
+            locked = true;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+
     }
     private void FixedUpdate()
     {

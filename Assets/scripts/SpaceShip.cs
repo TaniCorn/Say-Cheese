@@ -30,6 +30,8 @@ public class SpaceShip : MonoBehaviour
     [SerializeField] private AudioSource shipAbductSoundSource;
     [SerializeField] private AudioSource shipHitSoundSource;
     private SoundJukebox jukebox;
+
+    float abductionPatchFix = 10.0f;
     
     public static void SetRoamPoints(Vector3[] rp){roamPoints = rp;}
     public void TakeDamage(){Debug.Log("<color=Blue>SpaceShip took damage</color>");life -= 500; PlayHitSound(); }
@@ -51,6 +53,7 @@ public class SpaceShip : MonoBehaviour
         //Change state to Attacking
         if (timer < 0 && currState != GameState.Attacking)
         {
+            abductionPatchFix = 10.0f;
             currState = GameState.Attacking;
             FindNewTarget();
             Debug.Log("<color=Blue>SpaceShip is Attacking</color>");
@@ -148,7 +151,11 @@ public class SpaceShip : MonoBehaviour
         target.transform.position -= diff.normalized * Time.deltaTime ;
 
         target.transform.Rotate(new Vector3(1, 1, 0.7f), 200 * Time.deltaTime);
-
+        abductionPatchFix -= Time.deltaTime;
+        if (abductionPatchFix < 0)
+        {
+            GetComponentInChildren<AbductionZone>().CowCaptured(target.GetComponent<Cow>());
+        }
 
     }
 

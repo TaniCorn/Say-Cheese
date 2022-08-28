@@ -28,6 +28,9 @@ public class manager : MonoBehaviour
     public static void RemoveCow()
     {
         totalCows--;
+        GameObject cowText = FindObjectOfType<manager>().totalCowsText.gameObject;
+        LeanTween.scale(cowText, new Vector3(1.2f, 1.2f, 1.2f), 0.2f);
+        LeanTween.scale(cowText, new Vector3(1.0f, 1.0f, 1.0f), 0.05f).setDelay(0.2f);
         FindObjectOfType<manager>().totalCowsText.text = totalCows.ToString();
         if (totalCows <= 0)
         {
